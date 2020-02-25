@@ -1,0 +1,11 @@
+FROM centos
+MAINTAINER user1
+RUN yum install -y bind bind-utils g++ net-utils python3 wget
+RUN yum install -y ruby emacs vim ngnix
+RUN wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz
+RUN tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
+EXPOSE 53
+RUN rm -vf /etc/named.conf || true
+RUN touch /etc/named.conf
+RUN echo "options {};" >>/etc/named.conf
+#CMD named -g -c /etc/named.conf
